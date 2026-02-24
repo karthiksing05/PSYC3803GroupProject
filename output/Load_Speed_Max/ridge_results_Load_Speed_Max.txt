@@ -1,0 +1,21 @@
+Ridge Results (Load_Speed_Max)
+
+Coefficients (rows=features, cols=targets):
+
+                              Score         a         v
+posterior_alpha           76.477148  0.118580  0.305477
+posterior_beta            13.311913 -0.000107 -0.049471
+frontal_theta             41.299562  0.073208  0.124341
+frontal_theta_beta_ratio -56.235085  0.009899 -0.181675
+global_alpha             -47.045386 -0.047521 -0.201466
+global_beta              -68.309233 -0.002734 -0.123532
+IAF                       -8.196061 -0.076900 -0.026768
+aperiodic_exponent         0.031770 -0.163085  0.078771
+
+Intercepts:
+
+{'Score': np.float64(729.266304347826), 'a': np.float64(1.589892249999999), 'v': np.float64(3.155369271739129)}
+
+R^2 per target:
+
+{'Score': np.float64(0.048670932742688744), 'a': np.float64(0.05895365445222234), 'v': np.float64(0.014077539255776705)}

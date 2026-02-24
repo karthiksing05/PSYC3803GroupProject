@@ -1,0 +1,21 @@
+Lasso (MultiOutput) Results (NoLoad_Accuracy_Mid)
+
+Coefficients (rows=features, cols=targets):
+
+                              Score    a    v
+posterior_alpha           87.701623  0.0  0.0
+posterior_beta            -0.000000  0.0  0.0
+frontal_theta              0.000000  0.0  0.0
+frontal_theta_beta_ratio -14.925669  0.0  0.0
+global_alpha             -68.745243  0.0  0.0
+global_beta              -21.065503  0.0  0.0
+IAF                        0.490736  0.0  0.0
+aperiodic_exponent        -3.928931  0.0  0.0
+
+Intercepts:
+
+{'Score': np.float64(692.6086956521737), 'a': np.float64(1.4583663695652174), 'v': np.float64(4.003208070652174)}
+
+R^2 per target:
+
+{'Score': np.float64(0.016230111656686086), 'a': np.float64(0.0), 'v': np.float64(0.0)}

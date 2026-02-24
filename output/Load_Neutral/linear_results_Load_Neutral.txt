@@ -1,0 +1,21 @@
+LinearRegression Results (Load_Neutral)
+
+Coefficients (rows=features, cols=targets):
+
+                               Score         a         v
+posterior_alpha           128.642851 -0.070652  0.493636
+posterior_beta              9.592569  0.107406  0.097605
+frontal_theta              22.660208 -0.047969  0.132391
+frontal_theta_beta_ratio  -41.252194  0.099962 -0.172426
+global_alpha             -119.156271  0.059695 -0.608253
+global_beta               -37.465754  0.055401 -0.186937
+IAF                        -9.777263 -0.038167 -0.008289
+aperiodic_exponent          9.660038 -0.090682  0.121577
+
+Intercepts:
+
+{'Score': np.float64(670.8695652173909), 'a': np.float64(1.7869858152173919), 'v': np.float64(2.937855369565216)}
+
+R^2 per target:
+
+{'Score': np.float64(0.04165238812737948), 'a': np.float64(0.059505967848675456), 'v': np.float64(0.04343125857227048)}
