@@ -10,6 +10,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import os
 from pathlib import Path
+try:
+	import pacmap
+	HAS_PACMAP = True
+except Exception:
+	HAS_PACMAP = False
 
 
 def main():
@@ -123,6 +128,46 @@ def main():
 		plot_path = cond_dir / f"pca_2d_scatter_targets_{cond_key}.png"
 		fig.savefig(plot_path, dpi=150, bbox_inches='tight')
 		plt.close(fig)
+
+		# PaCMAP visualization (optional) with safety checks
+		pac_note_path = cond_dir / "pacmap_note.txt"
+		if HAS_PACMAP:
+			n_samples = Xs.shape[0]
+			if n_samples < 3:
+				pac_note_path.write_text(f"Not enough samples for PaCMAP (n={n_samples}); need >=3")
+				print(f"Skipping PaCMAP for {cond}: not enough samples (n={n_samples})")
+			else:
+				try:
+					# ensure float32 input and set reasonable n_neighbors
+					Xs_pac = np.asarray(Xs, dtype=np.float32)
+					n_neighbors = min(10, max(2, n_samples - 1))
+					pm = pacmap.PaCMAP(n_components=2, n_neighbors=n_neighbors)
+					X_pac = pm.fit_transform(Xs_pac)
+					fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+					axes = axes.flatten()
+					for i, ax in enumerate(axes[:len(targets)]):
+						vals = y[:, i]
+						sc = ax.scatter(X_pac[:, 0], X_pac[:, 1], c=vals, cmap='viridis', s=35)
+						cb = fig.colorbar(sc, ax=ax)
+						cb.set_label(targets[i])
+						ax.set_xlabel('PaCMAP 1')
+						ax.set_ylabel('PaCMAP 2')
+						ax.set_title(f'PaCMAP(2) colored by {targets[i]}')
+					if len(targets) < len(axes):
+						for ax in axes[len(targets):]:
+							ax.axis('off')
+					fig.tight_layout()
+					pm_path = cond_dir / f"pacmap_2d_scatter_targets_{cond_key}.png"
+					fig.savefig(pm_path, dpi=150, bbox_inches='tight')
+					plt.close(fig)
+					pac_note_path.write_text(f"PaCMAP plot saved: {pm_path}")
+					print(f"Saved PaCMAP plot for condition {cond} -> {pm_path}")
+				except Exception as e:
+					pac_note_path.write_text(f"PaCMAP failed: {e}")
+					print(f"PaCMAP failed for {cond}: {e}")
+		else:
+			# note that pacmap isn't available
+			pac_note_path.write_text("pacmap not installed; to enable PaCMAP visualizations run: pip install pacmap")
 
 		print(f"Saved results and plot for condition {cond} -> {cond_dir}")
 
